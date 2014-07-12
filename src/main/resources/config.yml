@@ -1,0 +1,4 @@
+# The time in minutes when the plugin checks for a random event
+random_interval: 10
+# The percent chance the event has of acutally triggering
+random_percent: 25.0
