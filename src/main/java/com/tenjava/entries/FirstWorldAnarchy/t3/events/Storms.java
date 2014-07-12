@@ -72,7 +72,7 @@ public enum Storms {
                 int random = (int) Math.floor(Math.random() * 100 + 1);
                 if (random  <= 25) {
                     for (Player player : Bukkit.getOnlinePlayers()) {
-                        Fireball ball = (Fireball) player.getWorld().spawnEntity(player.getLocation(), EntityType.FIREBALL);
+                        Fireball ball = (Fireball) player.getWorld().spawnEntity(player.getLocation().add(0, 50, 0), EntityType.FIREBALL);
                         ball.setVelocity(new Vector(0, -3, 0));
                     }
                 }
@@ -87,7 +87,7 @@ public enum Storms {
                 setStormInProgress(false);
                 setCurrentStorm(null);
             }
-        }, TenJava.getInstance().getConfig().getInt("storm_duration") * 120);
+        }, TenJava.getInstance().getConfig().getInt("storm_duration") * 1200);
     }
 
     public static void startAcidRain() {
@@ -106,7 +106,7 @@ public enum Storms {
                 setStormInProgress(false);
                 setCurrentStorm(null);
             }
-        }, TenJava.getInstance().getConfig().getInt("storm_duration") * 120);
+        }, TenJava.getInstance().getConfig().getInt("storm_duration") * 1200);
     }
 
     public static void startTornado() {
@@ -134,7 +134,7 @@ public enum Storms {
                 setCurrentStorm(null);
                 Bukkit.broadcastMessage(ChatColor.GREEN + "Tornado has ended!");
             }
-        }, TenJava.getInstance().getConfig().getInt("storm_duration") * 120);
+        }, TenJava.getInstance().getConfig().getInt("storm_duration") * 1200);
     }
 
     public static void startEarthquake() {
@@ -163,7 +163,7 @@ public enum Storms {
                 setStormInProgress(false);
                 setCurrentStorm(null);
             }
-        }, TenJava.getInstance().getConfig().getInt("storm_duration") * 120);
+        }, TenJava.getInstance().getConfig().getInt("storm_duration") * 1200);
         
     }
 
