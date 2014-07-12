@@ -8,6 +8,7 @@ package com.tenjava.entries.FirstWorldAnarchy.t3.events;
 import com.tenjava.entries.FirstWorldAnarchy.t3.TenJava;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.World;
 
 /**
  *
@@ -18,13 +19,22 @@ public enum Storms {
     METEOR_SHOWER("storms.meteor_shower"), ACID_RAIN("storms.acid_rain"), TORNADOS("storms.tornados"), EARTHQUAKES("storms.earthquakes");
 
     private String alias;
-    
+
     private static boolean stormInProgress;
+    private static Storms currentStorm = null;
 
     public static boolean isStormInProgress() {
         return stormInProgress;
     }
-    
+
+    public static Storms getCurrentStorm() {
+        return currentStorm;
+    }
+
+    private static void setCurrentStorm(Storms storm) {
+        currentStorm = storm;
+    }
+
     private static void setStormInProgress(boolean stormInProgress) {
         Storms.stormInProgress = stormInProgress;
     }
@@ -40,21 +50,49 @@ public enum Storms {
     public static void startMeteorShower() {
         Bukkit.broadcastMessage(ChatColor.DARK_RED + "A meteor shower has started! Take cover!");
         setStormInProgress(true);
+        setCurrentStorm(METEOR_SHOWER);
+        Bukkit.getServer().getScheduler().runTaskLater(TenJava.getInstance(), new Runnable() {
+            @Override public void run() {
+                setStormInProgress(false);
+                setCurrentStorm(null);
+            }
+        }, 6000);
     }
 
     public static void startAcidRain() {
         Bukkit.broadcastMessage(ChatColor.BLUE + "It's raining acid! Take cover!");
         setStormInProgress(true);
+        setCurrentStorm(ACID_RAIN);
+        Bukkit.getServer().getScheduler().runTaskLater(TenJava.getInstance(), new Runnable() {
+            @Override public void run() {
+                setStormInProgress(false);
+                setCurrentStorm(null);
+            }
+        }, 6000);
     }
 
     public static void startTornado() {
         Bukkit.broadcastMessage(ChatColor.GRAY + "A tornado has spawned! Take cover!");
         setStormInProgress(true);
+        setCurrentStorm(TORNADOS);
+        Bukkit.getServer().getScheduler().runTaskLater(TenJava.getInstance(), new Runnable() {
+            @Override public void run() {
+                setStormInProgress(false);
+                setCurrentStorm(null);
+            }
+        }, 6000);
     }
 
     public static void startEarthquake() {
         Bukkit.broadcastMessage(ChatColor.DARK_GREEN + "An earthquake has started! Take cover!");
         setStormInProgress(true);
+        setCurrentStorm(EARTHQUAKES);Bukkit.getServer().getScheduler().runTaskLater(TenJava.getInstance(), new Runnable() {
+            @Override public void run() {
+                setStormInProgress(false);
+                setCurrentStorm(null);
+            }
+        }, 6000);
+        
     }
 
     public static void startCorrespondingStorm(String configName) {
