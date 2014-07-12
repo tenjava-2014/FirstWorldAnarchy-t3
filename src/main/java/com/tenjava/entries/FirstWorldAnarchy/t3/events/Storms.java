@@ -8,6 +8,10 @@ package com.tenjava.entries.FirstWorldAnarchy.t3.events;
 import com.tenjava.entries.FirstWorldAnarchy.t3.TenJava;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.World;
+import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.util.Vector;
 
 /**
  *
@@ -62,24 +66,46 @@ public enum Storms {
         Bukkit.broadcastMessage(ChatColor.BLUE + "It's raining acid! Take cover!");
         setStormInProgress(true);
         setCurrentStorm(ACID_RAIN);
+        // -------------------------------------------------
+        // Storm Code
+        for (World world : Bukkit.getServer().getWorlds()) {
+            world.setStorm(true);
+        }
+        // -------------------------------------------------
+        // End Storm Code
         Bukkit.getServer().getScheduler().runTaskLater(TenJava.getInstance(), new Runnable() {
             @Override public void run() {
                 setStormInProgress(false);
                 setCurrentStorm(null);
             }
-        }, 6000);
+        }, TenJava.getInstance().getConfig().getInt("storm_duration") * 120);
     }
 
     public static void startTornado() {
         Bukkit.broadcastMessage(ChatColor.GRAY + "A tornado has spawned! Take cover!");
         setStormInProgress(true);
         setCurrentStorm(TORNADOS);
+        // -------------------------------------------------
+        // Storm Code
+        Bukkit.getServer().getScheduler().runTaskTimer(TenJava.getInstance(), new BukkitRunnable() {
+            private int count = 300;
+            @Override public void run () {
+                for (Player player : Bukkit.getOnlinePlayers()) {
+                    player.setVelocity(new Vector(Math.floor(Math.random() * 2 + 1), Math.floor(Math.random() * 2 + 1), Math.floor(Math.random() * 2 + 1)));
+                }
+                count--;
+                if (count <= 0) cancel();
+            }
+        }, 0, 40);
+        // -------------------------------------------------
+        // End Storm Code
         Bukkit.getServer().getScheduler().runTaskLater(TenJava.getInstance(), new Runnable() {
             @Override public void run() {
                 setStormInProgress(false);
                 setCurrentStorm(null);
+                Bukkit.broadcastMessage(ChatColor.GREEN + "Tornado has ended!");
             }
-        }, 6000);
+        }, TenJava.getInstance().getConfig().getInt("storm_duration") * 120);
     }
 
     public static void startEarthquake() {
@@ -90,7 +116,7 @@ public enum Storms {
                 setStormInProgress(false);
                 setCurrentStorm(null);
             }
-        }, 6000);
+        }, TenJava.getInstance().getConfig().getInt("storm_duration") * 120);
         
     }
 
