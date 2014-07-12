@@ -20,7 +20,3 @@ storms:
     earthquakes:
         possible: true
         chance: 20
-    # The monolith is all of the storms combined
-    monolith:
-        possible: true
-        chance: 20

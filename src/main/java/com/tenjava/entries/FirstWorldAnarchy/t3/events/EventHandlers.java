@@ -24,8 +24,7 @@ public class EventHandlers implements Listener {
             TenJava.getInstance().getConfig().getInt("storms.meteor_shower"),
             TenJava.getInstance().getConfig().getInt("storms.tornado"),
             TenJava.getInstance().getConfig().getInt("storms.acid_rain"),
-            TenJava.getInstance().getConfig().getInt("storms.earthquake"),
-            TenJava.getInstance().getConfig().getInt("storms.monolith")
+            TenJava.getInstance().getConfig().getInt("storms.earthquake")
         };
         
     }
