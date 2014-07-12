@@ -8,17 +8,12 @@ package com.tenjava.entries.FirstWorldAnarchy.t3.events;
 import com.tenjava.entries.FirstWorldAnarchy.t3.TenJava;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Sound;
+import org.bukkit.Material;
 import org.bukkit.World;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.FallingBlock;
-import org.bukkit.entity.FallingSand;
 import org.bukkit.entity.Fireball;
 import org.bukkit.entity.Player;
-import org.bukkit.metadata.FixedMetadataValue;
-import org.bukkit.metadata.LazyMetadataValue;
-import org.bukkit.metadata.MetadataValue;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
@@ -30,7 +25,7 @@ public enum Storms {
 
     METEOR_SHOWER("storms.meteor_shower"), ACID_RAIN("storms.acid_rain"), EARTHQUAKES("storms.earthquakes");
 
-    private String alias;
+    private final String alias;
 
     private static boolean stormInProgress;
     private static Storms currentStorm = null;
@@ -67,23 +62,28 @@ public enum Storms {
         // Storm Code
         Bukkit.getServer().getScheduler().runTaskTimer(TenJava.getInstance(), new BukkitRunnable() {
             private int count = 300;
+
             @Override
             public void run() {
                 int random = (int) Math.floor(Math.random() * 100 + 1);
-                if (random  <= 25) {
+                if (random <= 25) {
                     for (Player player : Bukkit.getOnlinePlayers()) {
                         Fireball ball = (Fireball) player.getWorld().spawnEntity(player.getLocation().add(0, 50, 0), EntityType.FIREBALL);
                         ball.setVelocity(new Vector(0, -3, 0));
                     }
                 }
                 count--;
+                if (count <= 0) {
+                    cancel();
+                }
             }
         }, 0, 2);
         // ----------------------------------------------
         // End Storm Code
-        
+
         Bukkit.getServer().getScheduler().runTaskLater(TenJava.getInstance(), new Runnable() {
-            @Override public void run() {
+            @Override
+            public void run() {
                 setStormInProgress(false);
                 setCurrentStorm(null);
             }
@@ -102,13 +102,16 @@ public enum Storms {
         // -------------------------------------------------
         // End Storm Code
         Bukkit.getServer().getScheduler().runTaskLater(TenJava.getInstance(), new Runnable() {
-            @Override public void run() {
+            @Override
+            public void run() {
                 setStormInProgress(false);
                 setCurrentStorm(null);
+                for (World world : Bukkit.getServer().getWorlds()) {
+                    world.setStorm(false);
+                }
             }
         }, TenJava.getInstance().getConfig().getInt("storm_duration") * 1200);
     }
-
 
     public static void startEarthquake() {
         Bukkit.broadcastMessage(ChatColor.DARK_GREEN + "An earthquake has started! Take cover!");
@@ -118,26 +121,29 @@ public enum Storms {
         // Storm Code
         Bukkit.getServer().getScheduler().runTaskTimer(TenJava.getInstance(), new BukkitRunnable() {
             private int count = 300;
+
             @Override
             public void run() {
                 int random = (int) Math.floor(Math.random() * 100 + 1);
-                if (random  <= 25) {
+                if (random <= 25) {
                     for (Player player : Bukkit.getOnlinePlayers()) {
-                        FallingBlock block = (FallingBlock) player.getWorld().spawnEntity(player.getLocation(), EntityType.FALLING_BLOCK);
+                        FallingBlock block = player.getWorld().spawnFallingBlock(player.getLocation(), random % 2 == 0 ? Material.GRASS : Material.STONE, (byte) 0);
                     }
                 }
                 count--;
+                if (count <= 0) cancel();
             }
         }, 0, 2);
         // ----------------------------------------------
         // End Storm Code
         Bukkit.getServer().getScheduler().runTaskLater(TenJava.getInstance(), new Runnable() {
-            @Override public void run() {
+            @Override
+            public void run() {
                 setStormInProgress(false);
                 setCurrentStorm(null);
             }
         }, TenJava.getInstance().getConfig().getInt("storm_duration") * 1200);
-        
+
     }
 
     public static void startCorrespondingStorm(String configName) {
