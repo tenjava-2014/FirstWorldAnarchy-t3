@@ -8,7 +8,6 @@ package com.tenjava.entries.FirstWorldAnarchy.t3.events;
 import com.tenjava.entries.FirstWorldAnarchy.t3.TenJava;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.World;
 
 /**
  *
@@ -56,7 +55,7 @@ public enum Storms {
                 setStormInProgress(false);
                 setCurrentStorm(null);
             }
-        }, 6000);
+        }, TenJava.getInstance().getConfig().getInt("storm_duration") * 120);
     }
 
     public static void startAcidRain() {
