@@ -11,7 +11,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 public class TenJava extends JavaPlugin {
 
-    private static TenJava instance = new TenJava();
+    private static TenJava instance;
 
     private class RandomEventChecker extends BukkitRunnable {
 
@@ -42,6 +42,7 @@ public class TenJava extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        instance = this;
         saveDefaultConfig();
         getServer().getPluginManager().registerEvents(new EventHandlers(), this);
         new RandomEventChecker().runTaskTimer(this, 0, getConfig().getInt("random_delay"));
