@@ -6,6 +6,7 @@
 
 package com.tenjava.entries.FirstWorldAnarchy.t3.events;
 
+import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
 /**
@@ -14,4 +15,8 @@ import org.bukkit.event.Listener;
  */
 public class EventHandlers implements Listener {
     
+    @EventHandler
+    public void onRandomEvent(RandomEvent e) {
+        
+    }
 }
