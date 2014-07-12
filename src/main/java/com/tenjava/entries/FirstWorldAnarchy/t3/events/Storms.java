@@ -10,22 +10,33 @@ package com.tenjava.entries.FirstWorldAnarchy.t3.events;
  *
  * @author family
  */
-public class Storms {
-    private static Storms instance;
+public enum Storms {
+    METEOR_SHOWER("storms.meteor_shower"), ACID_RAIN("storms.acid_rain"), TORNADOS("storms.tornados"), EARTHQUAKES("storms.earthquakes");
     
-    public static Storms getInstance() {
-        return instance;
+    private String alias;
+    
+    private Storms(String alias) {
+        this.alias = alias;
     }
     
-    public void startMeteorShower() {
+    public String getAlias() {
+        return alias;
+    }
+    
+    public static void startMeteorShower() {
         
     }
     
-    public void startAcidRain() {
+    public static void startAcidRain() {
         
     }
     
-    public void startTornados() {
+    public static void startTornado() {
         
     }
+    
+    public static void startEarthquake() {
+        
+    }
+    
 }
