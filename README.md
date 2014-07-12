@@ -1,5 +1,4 @@
-FirstWorldAnarchy's ten.java submission
-Natural Disasters!
+FirstWorldAnarchy's ten.java submission - Extreme Storms!
 ==============================
 
 [![ten.java](https://cdn.mediacru.sh/hu4CJqRD7AiB.svg)](https://tenjava.com/)
