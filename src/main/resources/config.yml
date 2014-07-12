@@ -8,15 +8,7 @@ random_percent: 25.0
 # Please make the percents add up to 100!
 # ---------------------------------------
 storms:
-    meteor_shower:
-        possible: true
-        chance: 20
-    tornados:
-        possible: true
-        chance: 20
-    acid_rain:
-        possible: true
-        chance: 20
-    earthquakes:
-        possible: true
-        chance: 20
+    meteor_shower: true
+    tornados: true
+    acid_rain: true
+    earthquakes: true
