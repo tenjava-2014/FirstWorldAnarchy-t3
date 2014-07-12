@@ -45,7 +45,7 @@ public class TenJava extends JavaPlugin {
         instance = this;
         saveDefaultConfig();
         getServer().getPluginManager().registerEvents(new EventHandlers(), this);
-        new RandomEventChecker().runTaskTimer(this, 0, getConfig().getInt("random_delay"));
+        new RandomEventChecker().runTaskTimer(this, 0, getConfig().getInt("random_delay") * 1200);
         new DamagePlayerFromStorm().runTaskTimer(this, 0, 20);
     }
 
