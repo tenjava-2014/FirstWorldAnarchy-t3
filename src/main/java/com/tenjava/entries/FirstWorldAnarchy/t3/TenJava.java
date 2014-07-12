@@ -35,11 +35,9 @@ public class TenJava extends JavaPlugin {
             for (Player player : Bukkit.getOnlinePlayers()) {
                 if (Storms.isStormInProgress()) {
                     if (Storms.getCurrentStorm() == Storms.ACID_RAIN) {
-                        if (playerInRain(player)) {
-                            if (player.getHealth() > 0d) {
-                                player.damage(0.2);
-                                player.setHealth(player.getHealth() - 0.2);
-                            }
+                        if (playerInRain(player) && player.getHealth() > 0d) {
+                            player.damage(0.2);
+                            player.setHealth(player.getHealth() - 0.2);
                         }
                     }
                 }
@@ -62,19 +60,17 @@ public class TenJava extends JavaPlugin {
     }
 
     public boolean playerInRain(Player p) {
-        Location location = p.getEyeLocation();
+        Location location = p.getLocation().add(0, 2, 0);
         List<Integer> materials = new ArrayList<Integer>();
-        for (int i = location.getBlockY() + 1; i <= location.getWorld().getMaxHeight(); i++) {
+        for (int i = location.getBlockY(); i <= location.getWorld().getMaxHeight(); i++) {
+            location.setY(i);
             if (location.getBlock().getType() == Material.AIR) {
                 materials.add(0);
             } else {
                 materials.add(1);
             }
         }
-        if (p.getWorld().hasStorm() && materials.contains(1)) return false;
-        if (p.getWorld().hasStorm() && !materials.contains(1)) return true;
-        if (!p.getWorld().hasStorm()) return false;
-        return false;
+        return !p.getWorld().hasStorm() || !materials.contains(1);
     }
 
 }

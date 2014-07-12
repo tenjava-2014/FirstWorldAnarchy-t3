@@ -68,8 +68,7 @@ public enum Storms {
                 int random = (int) Math.floor(Math.random() * 100 + 1);
                 if (random <= 25) {
                     for (Player player : Bukkit.getOnlinePlayers()) {
-                        Fireball ball = (Fireball) player.getWorld().spawnEntity(player.getLocation().add(0, 50, 0), EntityType.FIREBALL);
-                        ball.setVelocity(new Vector(0, -3, 0));
+                        player.getWorld().spawnEntity(player.getLocation().add(0, 50, 0), EntityType.FIREBALL).setVelocity(new Vector(0.0, -3.0, 0.0));
                     }
                 }
                 count--;
@@ -77,7 +76,7 @@ public enum Storms {
                     cancel();
                 }
             }
-        }, 0, 2);
+        }, 0, 40);
         // ----------------------------------------------
         // End Storm Code
 
@@ -132,9 +131,11 @@ public enum Storms {
                     }
                 }
                 count--;
-                if (count <= 0) cancel();
+                if (count == 0) {
+                    cancel();
+                }
             }
-        }, 0, 2);
+        }, 0, 40);
         // ----------------------------------------------
         // End Storm Code
         Bukkit.getServer().getScheduler().runTaskLater(TenJava.getInstance(), new Runnable() {
