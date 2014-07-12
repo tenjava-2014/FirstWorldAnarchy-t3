@@ -20,6 +20,7 @@ public class TenJava extends JavaPlugin {
 
         @Override
         public void run() {
+            Bukkit.broadcastMessage("testing a random event");
             int random = (int) Math.floor(Math.random() * 100 + 1);
             if (random <= getConfig().getInt("random_percent") && !Storms.isStormInProgress()) {
                 getServer().getPluginManager().callEvent(new RandomEvent());
@@ -64,7 +65,11 @@ public class TenJava extends JavaPlugin {
         Location location = p.getEyeLocation();
         List<Integer> materials = new ArrayList<Integer>();
         for (int i = location.getBlockY() + 1; i <= location.getWorld().getMaxHeight(); i++) {
-            materials.add(location.getBlock().getType() == Material.AIR ? 0 : 1);
+            if (location.getBlock().getType() == Material.AIR) {
+                materials.add(0);
+            } else {
+                materials.add(1);
+            }
         }
         if (p.getWorld().hasStorm() && materials.contains(1)) return false;
         if (p.getWorld().hasStorm() && !materials.contains(1)) return true;

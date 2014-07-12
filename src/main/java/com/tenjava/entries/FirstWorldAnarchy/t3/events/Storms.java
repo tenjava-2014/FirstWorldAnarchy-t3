@@ -108,6 +108,7 @@ public enum Storms {
                 setCurrentStorm(null);
                 for (World world : Bukkit.getServer().getWorlds()) {
                     world.setStorm(false);
+                    world.setWeatherDuration(0);
                 }
             }
         }, TenJava.getInstance().getConfig().getInt("storm_duration") * 1200);
