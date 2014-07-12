@@ -28,7 +28,7 @@ import org.bukkit.util.Vector;
  */
 public enum Storms {
 
-    METEOR_SHOWER("storms.meteor_shower"), ACID_RAIN("storms.acid_rain"), TORNADOS("storms.tornados"), EARTHQUAKES("storms.earthquakes");
+    METEOR_SHOWER("storms.meteor_shower"), ACID_RAIN("storms.acid_rain"), EARTHQUAKES("storms.earthquakes");
 
     private String alias;
 
@@ -109,33 +109,6 @@ public enum Storms {
         }, TenJava.getInstance().getConfig().getInt("storm_duration") * 1200);
     }
 
-    public static void startTornado() {
-        Bukkit.broadcastMessage(ChatColor.GRAY + "A tornado has spawned!");
-        setStormInProgress(true);
-        setCurrentStorm(TORNADOS);
-        // -------------------------------------------------
-        // Storm Code
-        Bukkit.getServer().getScheduler().runTaskTimer(TenJava.getInstance(), new BukkitRunnable() {
-            private int count = 300;
-            @Override public void run () {
-                for (Player player : Bukkit.getOnlinePlayers()) {
-                    player.setVelocity(new Vector(Math.floor(Math.random() * 2 + 1), Math.floor(Math.random() * 2 + 1), Math.floor(Math.random() * 2 + 1)));
-                    player.playSound(player.getLocation(), Sound.PORTAL, 1, 1.5f);
-                }
-                count--;
-                if (count <= 0) cancel();
-            }
-        }, 0, 40);
-        // -------------------------------------------------
-        // End Storm Code
-        Bukkit.getServer().getScheduler().runTaskLater(TenJava.getInstance(), new Runnable() {
-            @Override public void run() {
-                setStormInProgress(false);
-                setCurrentStorm(null);
-                Bukkit.broadcastMessage(ChatColor.GREEN + "Tornado has ended!");
-            }
-        }, TenJava.getInstance().getConfig().getInt("storm_duration") * 1200);
-    }
 
     public static void startEarthquake() {
         Bukkit.broadcastMessage(ChatColor.DARK_GREEN + "An earthquake has started! Take cover!");
@@ -170,8 +143,6 @@ public enum Storms {
     public static void startCorrespondingStorm(String configName) {
         if (configName.equalsIgnoreCase(METEOR_SHOWER.getAlias()) && TenJava.getInstance().getConfig().getBoolean(METEOR_SHOWER.getAlias())) {
             startMeteorShower();
-        } else if (configName.equalsIgnoreCase(TORNADOS.getAlias()) && TenJava.getInstance().getConfig().getBoolean(TORNADOS.getAlias())) {
-            startTornado();
         } else if (configName.equalsIgnoreCase(ACID_RAIN.getAlias()) && TenJava.getInstance().getConfig().getBoolean(ACID_RAIN.getAlias())) {
             startAcidRain();
         } else if (configName.equalsIgnoreCase(EARTHQUAKES.getAlias()) && TenJava.getInstance().getConfig().getBoolean(EARTHQUAKES.getAlias())) {

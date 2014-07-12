@@ -17,20 +17,20 @@ public class EventHandlers implements Listener {
     
     @EventHandler
     public void onRandomEvent(RandomEvent e) {
-        int random = (int) Math.floor(Math.random() * 4 + 1);
-        Storms storm = Storms.METEOR_SHOWER;
+        int random = (int) Math.floor(Math.random() * 3 + 1);
+        Storms storm;
         switch (random) {
             case 1:
                 storm = Storms.METEOR_SHOWER;
                 break;
             case 2:
-                storm = Storms.TORNADOS;
+                storm = Storms.ACID_RAIN;
                 break;
             case 3:
-                storm = Storms.ACID_RAIN;
-               break;
-            case 4:
                 storm = Storms.EARTHQUAKES;
+               break;
+            default:
+                storm = Storms.METEOR_SHOWER;
                 break;
         }
         Storms.startCorrespondingStorm(storm.getAlias());

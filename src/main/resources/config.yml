@@ -3,7 +3,7 @@ random_interval: 10
 # The percent chance the event has of acutally triggering
 random_percent: 25.0
 # The time in minutes for how long any natural diaster will last
-storm_duration: 10
+storm_duration: 5
 
 # Select your possible storms and their percent chance of occuring
 # ---------------------------------------
@@ -11,6 +11,5 @@ storm_duration: 10
 # ---------------------------------------
 storms:
     meteor_shower: true
-    tornados: true
     acid_rain: true
     earthquakes: true
