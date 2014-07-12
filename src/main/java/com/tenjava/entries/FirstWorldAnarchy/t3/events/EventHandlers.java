@@ -6,10 +6,10 @@
 
 package com.tenjava.entries.FirstWorldAnarchy.t3.events;
 
-import com.tenjava.entries.FirstWorldAnarchy.t3.TenJava;
-import java.util.Collections;
+import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerMoveEvent;
 
 /**
  *
@@ -38,5 +38,16 @@ public class EventHandlers implements Listener {
         
         Storms.startCorrespondingStorm(storm.getAlias());
         
+    }
+    
+    @EventHandler
+    public void onPlayerMove(PlayerMoveEvent e) {
+        if (Storms.isStormInProgress()) {
+            if (Storms.getCurrentStorm() == Storms.ACID_RAIN) {
+                if (e.getPlayer().getWorld().getHighestBlockAt(e.getPlayer().getLocation()).getType() == Material.AIR) {
+                    e.getPlayer().damage(0.2);
+                }
+            }
+        }
     }
 }
