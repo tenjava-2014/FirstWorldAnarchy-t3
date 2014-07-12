@@ -2,3 +2,24 @@
 random_interval: 10
 # The percent chance the event has of acutally triggering
 random_percent: 25.0
+
+# Select your possible storms and their percent chance of occuring
+# ---------------------------------------
+# Please make the percents add up to 100!
+# ---------------------------------------
+meteor_shower:
+    possible: true
+    chance: 20
+tornados:
+    possible: true
+    chance: 20
+acid_rain:
+    possible: true
+    chance: 20
+earthquakes:
+    possible: true
+    chance: 20
+# The monolith is all of the storms combined!
+monolith:
+    possible: true
+    chance: 20
