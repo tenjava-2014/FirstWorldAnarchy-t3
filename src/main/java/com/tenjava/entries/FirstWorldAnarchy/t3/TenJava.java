@@ -4,7 +4,7 @@ import com.tenjava.entries.FirstWorldAnarchy.t3.events.EventHandlers;
 import com.tenjava.entries.FirstWorldAnarchy.t3.events.RandomEvent;
 import com.tenjava.entries.FirstWorldAnarchy.t3.events.Storms;
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -30,9 +30,10 @@ public class TenJava extends JavaPlugin {
             for (Player player : Bukkit.getOnlinePlayers()) {
                 if (Storms.isStormInProgress()) {
                     if (Storms.getCurrentStorm() == Storms.ACID_RAIN) {
-                        if (player.getWorld().getHighestBlockAt(player.getLocation()).getType() == Material.AIR) {
-                            player.damage(0.2);
-                        }
+                            if (player.getHealth() > 0d) {
+                                player.damage(0.2);
+                                player.setHealth(player.getHealth() - 0.2);
+                            }
                     }
                 }
             }
@@ -53,4 +54,10 @@ public class TenJava extends JavaPlugin {
         return instance;
     }
 
+    public void checkIsRainingOn(Player p) {
+        if (p.getWorld().hasStorm()) {
+            if ()
+        }
+    }
+    
 }
